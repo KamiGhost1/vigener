@@ -44,16 +44,18 @@ char *encrypt(char *in, char *out, char *key){
         exit(2);
     }
     o = fopen(out,"w");
-    test = (char*)malloc(sizeof(in));
-    while (EOF != (inC = fgetc(i))){
+    test = (char*)malloc(1);
+    while ((inC = fgetc(i)) != EOF){
         kC = key[j%strlen(key)];
         outC = inC+kC;
         fputc(outC,o);
+        test = (char*)realloc(test,sizeof(char)*(j+1));
         test[j]=outC;
         j++;
     }
     fclose(i);
     fclose(o);
+    printf("its end\n");
     return test;
 }
 char *decrypt(char *in, char *out, char *key){
@@ -71,11 +73,12 @@ char *decrypt(char *in, char *out, char *key){
         exit(2);
     }
     o = fopen(out,"w");
-    test = (char*)malloc(sizeof(in));
+    test = (char*)malloc(1);
     while (EOF != (inC = fgetc(i))){
         kC = key[j%strlen(key)];
         outC = inC-kC;
         fputc(outC,o);
+        test = (char*)realloc(test,sizeof(char)*(j+1));
         test[j]=outC;
         j++;
     }
