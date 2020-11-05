@@ -4,3 +4,5 @@
 
 
 void testParam(int C, char **V);
+char *encrypt(char *in, char *out, char *key);
+char *decrypt(char *in, char *out, char *key);
